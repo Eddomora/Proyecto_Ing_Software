@@ -1,1 +1,15 @@
-This is a basic project you can use as a template for the course project. In particular, it comes with the necessary templates that will make it easier for you to manage issues in GitHub projects.
+# Proyecto Ingenieria de Software
+Integrantes:
+| Nombre | GitHub | Matrícula |
+|--------|--------|-----------|
+| Vicente Ignacio Miranda Gómez | [@VicenteM32](https://github.com/VicenteM32) | 2023412848 |
+| Eduardo Alfonso Mora Hernández | [@Eddomora](https://github.com/Eddomora) | 2023403989 |
+
+
+# Diagrama de Caso de uso
+![image](https://github.com/joaquinnnng/Proyecto-Ingenier-a-Software/blob/main/Diagrama%20Caso%20de%20Uso.png)
+
+# Diagrama de Clases
+![image](https://github.com/joaquinnnng/Proyecto-Ingenier-a-Software/blob/main/Diagrama%20de%20Clases.png)
+
+
