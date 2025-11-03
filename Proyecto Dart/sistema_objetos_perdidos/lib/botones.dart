@@ -11,7 +11,7 @@ class MainButtons extends StatelessWidget {
         ElevatedButton(
          onPressed: () {
           Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const RegistroPage()));
+          MaterialPageRoute(builder: (context) => const RegistroPage())); //redirecciona 
          },
          child: Text('Registrar Objeto Perdido'))
       ],
