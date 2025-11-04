@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
 class RegistroPage extends StatefulWidget {
   const RegistroPage({super.key});
@@ -33,6 +35,9 @@ class _RegistroPageState extends State<RegistroPage> {
   TimeOfDay? time;
 
   final descriptionController = TextEditingController(); //Para la descripción
+
+  Uint8List imagebytes = Uint8List(0); //variable para almacenar la imagen
+  String imagestatus = "no hay imagen"; // variable para mostrar estado imagen
 
   @override
   void dispose() {
@@ -76,6 +81,22 @@ class _RegistroPageState extends State<RegistroPage> {
     }
   }
 
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(
+      maxHeight: 1080,
+      maxWidth: 1080,
+      source: ImageSource.gallery,
+    );
+    if (pickedImage != null) {
+      XFile? imageFile = XFile(pickedImage.path);
+      imagebytes = await imageFile.readAsBytes();
+      setState(() {
+        imagestatus = "imagen cargada correctamente";
+      });
+    }
+  }
+
   Future<void> _saveReport() async {
     // 1. Validar el formulario
     if (formularioKey.currentState!.validate()) {
@@ -88,7 +109,7 @@ class _RegistroPageState extends State<RegistroPage> {
 
       // Formato del string: [Categoría] - Encontrado en Lugar el Fecha a las Hora. Descripción: Detalle.
       final String newReportSummary =
-          '[$category] - Encontrado en $lugar el $date a las $timeStr. Descripción: $description';
+          '[$category] - Perdido en $lugar el $date a las $timeStr. Descripción: $description';
 
       // 3. Obtener la instancia de SharedPreferences
       final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -107,9 +128,7 @@ class _RegistroPageState extends State<RegistroPage> {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            content: Text(
-              'Objeto encontrado registrado y guardado en historial!',
-            ),
+            content: Text('Objeto perdido registrado y guardado en historial!'),
             backgroundColor: Colors.blue,
           ),
         );
@@ -236,7 +255,36 @@ class _RegistroPageState extends State<RegistroPage> {
                 return null;
               },
             ),
-            const SizedBox(height: 30),
+            const SizedBox(height: 40),
+
+            ElevatedButton(
+              onPressed: () {
+                pickImage();
+              },
+              child: const Text('agregar foto del objeto'),
+            ),
+
+            const SizedBox(height: 40),
+            if (imagestatus == "imagen cargada correctamente")
+              ClipOval(
+                child: Image.memory(
+                  imagebytes,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit
+                      .contain, // mantiene la imagen completa sin hacer zoom
+                ),
+              ),
+            if (imagestatus != "imagen cargada correctamente")
+              Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            const SizedBox(height: 40),
 
             // === Botón de Guardado ===
             ElevatedButton.icon(

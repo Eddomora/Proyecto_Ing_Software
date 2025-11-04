@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:typed_data';
 
 class EncontradoPage extends StatefulWidget {
   const EncontradoPage({super.key});
@@ -33,6 +35,9 @@ class _EncontradoPageState extends State<EncontradoPage> {
   TimeOfDay? time;
 
   final descriptionController = TextEditingController(); //Para la descripción
+
+  Uint8List imagebytes = Uint8List(0); //variable para almacenar la imagen
+  String imagestatus = "no hay imagen"; // variable para mostrar estado imagen
 
   @override
   void dispose() {
@@ -72,6 +77,22 @@ class _EncontradoPageState extends State<EncontradoPage> {
       setState(() {
         time = pickedTime;
         timeController.text = pickedTime.format(context);
+      });
+    }
+  }
+
+  Future<void> pickImage() async {
+    final imagePicker = ImagePicker();
+    final pickedImage = await imagePicker.pickImage(
+      maxHeight: 1080,
+      maxWidth: 1080,
+      source: ImageSource.gallery,
+    );
+    if (pickedImage != null) {
+      XFile? imageFile = XFile(pickedImage.path);
+      imagebytes = await imageFile.readAsBytes();
+      setState(() {
+        imagestatus = "imagen cargada correctamente";
       });
     }
   }
@@ -239,7 +260,35 @@ class _EncontradoPageState extends State<EncontradoPage> {
                 return null;
               },
             ),
+            const SizedBox(height: 40),
+            ElevatedButton(
+              onPressed: () {
+                pickImage();
+              },
+              child: const Text('agregar foto del objeto'),
+            ),
+
             const SizedBox(height: 30),
+            if (imagestatus == "imagen cargada correctamente")
+              ClipOval(
+                child: Image.memory(
+                  imagebytes,
+                  width: 200,
+                  height: 200,
+                  fit: BoxFit
+                      .contain, // mantiene la imagen completa sin hacer zoom
+                ),
+              ),
+            if (imagestatus != "imagen cargada correctamente")
+              Container(
+                width: 200,
+                height: 200,
+                decoration: const BoxDecoration(
+                  color: Colors.grey,
+                  shape: BoxShape.circle,
+                ),
+              ),
+            const SizedBox(height: 40),
 
             // === Botón de Guardado ===
             ElevatedButton.icon(
