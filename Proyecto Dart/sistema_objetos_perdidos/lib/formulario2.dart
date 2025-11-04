@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegistroPage extends StatefulWidget {
-  const RegistroPage({super.key});
+class EncontradoPage extends StatefulWidget {
+  const EncontradoPage({super.key});
 
   @override
-  State<RegistroPage> createState() => _RegistroPageState();
+  State<EncontradoPage> createState() => _EncontradoPageState();
 }
 
-class _RegistroPageState extends State<RegistroPage> {
+class _EncontradoPageState extends State<EncontradoPage> {
   final formularioKey = GlobalKey<FormState>(); //key para guardar los datos una vez finalizado el formulario
   String? selectedCategory;
   final List<String> categorias = ['Billetera', 'Celular', 'Llaves', 'Documentos', 'Joyas', 'Mochila/Bolso', 'Prenda de Vestir','Otros...'];
@@ -65,7 +65,7 @@ class _RegistroPageState extends State<RegistroPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registro de Objetos Perdidos')),
+        title: Text('Registro de Objetos Encontrados')),
         body: Form(
           key: formularioKey,
           child: ListView( //Listview para que sea scrolleable
@@ -104,7 +104,7 @@ class _RegistroPageState extends State<RegistroPage> {
               TextFormField(
                 controller: lugarController,
                 decoration: InputDecoration(
-                  labelText: 'Lugar donde se perdió',
+                  labelText: 'Lugar donde se encontro',
                   hintText: 'Ejemplo: CFM, Cubo 4, Los pastos...',
                   border: OutlineInputBorder(),
                 ),
