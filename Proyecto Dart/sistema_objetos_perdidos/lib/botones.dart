@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:sistema_objetos_perdidos/formulario_perdido.dart';
 import 'package:sistema_objetos_perdidos/formulario_encontrado.dart';
 import 'package:sistema_objetos_perdidos/historial_reportes.dart';
+import 'formulario_registro.dart';
 
+//pasar todo esto a la pantalla posterior de registro/login de usuario
 class MainButtons extends StatelessWidget {
   const MainButtons({super.key});
 
@@ -32,6 +34,19 @@ class MainButtons extends StatelessWidget {
             child: const Text('Registrar Objeto Encontrado'),
           ),
           const SizedBox(height: 16),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const FormularioRegistro()),
+              ); // redirecciona
+            },
+            child: const Text('Registrarse'),
+          ),
+          const SizedBox(height: 16),
+
+
           ElevatedButton(
             onPressed: () {
               Navigator.push(
