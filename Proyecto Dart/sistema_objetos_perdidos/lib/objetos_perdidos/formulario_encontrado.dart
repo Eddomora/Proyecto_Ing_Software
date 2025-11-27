@@ -8,7 +8,8 @@ import 'dart:typed_data';
 import 'package:sistema_objetos_perdidos/objetos_perdidos/reporte_modelo.dart';
 
 class EncontradoPage extends StatefulWidget {
-  const EncontradoPage({super.key});
+   final String usuarioEmail;
+  const EncontradoPage({super.key, required this.usuarioEmail});
 
   @override
   State<EncontradoPage> createState() => _EncontradoPageState();
@@ -113,6 +114,7 @@ class _EncontradoPageState extends State<EncontradoPage> {
         lugar: lugarController.text.trim(),
         fecha: "${dateController.text} ${timeController.text}",
         descripcion: descriptionController.text.trim(),
+        autor: widget.usuarioEmail,
       );
 
       final SharedPreferences prefs = await SharedPreferences.getInstance();

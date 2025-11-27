@@ -9,6 +9,7 @@ class ReporteModelo {
   String lugar;
   String estado; // "PENDIENTE" o "RECUPERADO"
   String? mensajeAdmin; 
+  String autor;
 
   ReporteModelo({
     required this.id,
@@ -18,6 +19,7 @@ class ReporteModelo {
     required this.categoria,
     required this.fecha,
     required this.lugar,
+    required this.autor,
     this.estado = 'PENDIENTE',
     this.mensajeAdmin,
   });
@@ -32,6 +34,7 @@ class ReporteModelo {
         'lugar': lugar,
         'estado': estado,
         'mensajeAdmin': mensajeAdmin,
+        'autor': autor,
       };
 
   factory ReporteModelo.fromJson(Map<String, dynamic> json) {
@@ -45,6 +48,7 @@ class ReporteModelo {
       lugar: json['lugar'],
       estado: json['estado'] ?? 'PENDIENTE',
       mensajeAdmin: json['mensajeAdmin'],
+      autor: json['autor'] ?? 'Anónimo',
     );
   }
 }

@@ -5,32 +5,38 @@ import 'package:sistema_objetos_perdidos/objetos_perdidos/formulario_encontrado.
 import 'package:sistema_objetos_perdidos/objetos_perdidos/historial_reportes.dart';
 
 class MainButtons extends StatelessWidget {
-  const MainButtons({super.key});
+  final String usuarioLogueado;
+  const MainButtons({super.key, required this.usuarioLogueado});
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+   return Center(
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text("Hola, $usuarioLogueado", style: TextStyle(color: Colors.grey)),
+          ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const RegistroPage()),
-              ); // redirecciona
+                MaterialPageRoute(builder: (context) => RegistroPage(usuarioEmail: usuarioLogueado)),
+              ); 
             },
             child: const Text('Registrar Objeto Perdido'),
           ),
           const SizedBox(height: 16),
+          
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const EncontradoPage()),
-              );
+                // PASAMOS EL USUARIO AL FORMULARIO
+                MaterialPageRoute(builder: (context) => RegistroPage(usuarioEmail: usuarioLogueado)),
+              ); 
             },
-            child: const Text('Registrar Objeto Encontrado'),
+            child: const Text('Registrar Objeto Perdido'),
           ),
           const SizedBox(height: 16),
 

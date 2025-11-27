@@ -135,8 +135,9 @@ class _ventanaAdminState extends State<ventanaAdmin> {
           style: TextStyle(fontWeight: FontWeight.bold, color: color),
         ),
         subtitle: Text(
+          'Por: ${report.autor}\n'
           '${report.fecha}\n${report.descripcion}',
-          maxLines: 2,
+          maxLines: 3,
           overflow: TextOverflow.ellipsis,
         ),
         isThreeLine: true,
